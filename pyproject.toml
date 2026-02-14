@@ -1,0 +1,25 @@
+[project]
+name = "ezjww"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "neka-nat", email = "nekanat.stock@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.8"]
+
+[project.scripts]
+ezjww = "ezjww:main"
+
+[tool.maturin]
+module-name = "ezjww._core"
+python-packages = ["ezjww"]
+python-source = "src"
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
