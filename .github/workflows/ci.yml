@@ -62,11 +62,11 @@ jobs:
         shell: bash
         run: |
           "${VENV_PY}" -m maturin develop --release
-          "${VENV_PY}" -m ezjww info official_samples/Test1.jww
-          "${VENV_PY}" -m ezjww audit official_samples/Test1.jww --json
-          "${VENV_PY}" -m ezjww bbox official_samples/Test1.jww --json --explode-inserts
-          "${VENV_PY}" -m ezjww stats official_samples/Test1.jww --json
-          "${VENV_PY}" -m ezjww report official_samples/Test1.jww --json --explode-inserts
+          "${VENV_PY}" -m ezjww info jww_samples/Test1.jww
+          "${VENV_PY}" -m ezjww audit jww_samples/Test1.jww --json
+          "${VENV_PY}" -m ezjww bbox jww_samples/Test1.jww --json --explode-inserts
+          "${VENV_PY}" -m ezjww stats jww_samples/Test1.jww --json
+          "${VENV_PY}" -m ezjww report jww_samples/Test1.jww --json --explode-inserts
           "${VENV_PY}" -m pytest -q tests/python
 
       - name: Build wheel

@@ -1357,8 +1357,8 @@ mod tests {
         }
     }
 
-    fn official_samples_dir() -> PathBuf {
-        Path::new(env!("CARGO_MANIFEST_DIR")).join("official_samples")
+    fn jww_samples_dir() -> PathBuf {
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("jww_samples")
     }
 
     #[test]
@@ -1745,8 +1745,8 @@ mod tests {
     }
 
     #[test]
-    fn convert_and_write_all_official_samples() {
-        let dir = official_samples_dir();
+    fn convert_and_write_all_jww_samples() {
+        let dir = jww_samples_dir();
         let mut files = fs::read_dir(&dir)
             .unwrap()
             .filter_map(Result::ok)
@@ -1754,7 +1754,7 @@ mod tests {
             .filter(|p| p.extension().map(|ext| ext == "jww").unwrap_or(false))
             .collect::<Vec<_>>();
         files.sort();
-        assert!(!files.is_empty(), "no official sample files found");
+        assert!(!files.is_empty(), "no .jww files found in jww_samples");
 
         for path in files {
             let doc = read_document_from_file(&path)

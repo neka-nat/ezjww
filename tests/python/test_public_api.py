@@ -17,7 +17,7 @@ import ezjww
 
 
 def sample_path() -> Path:
-    return ROOT / "official_samples" / "Test1.jww"
+    return ROOT / "jww_samples" / "Test1.jww"
 
 
 class PublicApiTests(unittest.TestCase):
@@ -180,6 +180,29 @@ class PublicApiTests(unittest.TestCase):
             self.assertIn("explode_inserts", report)
             self.assertIn("max_block_nesting", report)
 
+    def test_print_json_fallback_for_non_utf8_stdout(self):
+        class _AsciiStdout:
+            def __init__(self):
+                self.parts: list[str] = []
+
+            def write(self, text: str) -> int:
+                text.encode("ascii")
+                self.parts.append(text)
+                return len(text)
+
+            def flush(self) -> None:
+                return None
+
+            def getvalue(self) -> str:
+                return "".join(self.parts)
+
+        fake_stdout = _AsciiStdout()
+        with patch("sys.stdout", new=fake_stdout):
+            ezjww._print_json({"text": "日本語"})
+
+        parsed = json.loads(fake_stdout.getvalue())
+        self.assertEqual(parsed["text"], "日本語")
+
     def test_cli_audit_json(self):
         buf = StringIO()
         with patch("sys.stdout", new=buf):
@@ -300,7 +323,7 @@ class PublicApiTests(unittest.TestCase):
             code = ezjww._run(
                 [
                     "to-dxf-dir",
-                    str(ROOT / "official_samples"),
+                    str(ROOT / "jww_samples"),
                     "-o",
                     str(out_dir),
                     "--report",

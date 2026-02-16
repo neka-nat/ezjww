@@ -828,13 +828,22 @@ def _normalize_max_block_nesting(max_block_nesting: int) -> int:
 def _emit_report(report: dict[str, Any], report_format: str | None, report_path: str | None) -> None:
     if report_format != "json":
         return
-    body = json.dumps(report, ensure_ascii=False, indent=2)
     if report_path:
+        body = json.dumps(report, ensure_ascii=False, indent=2)
         out = Path(report_path)
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(body + "\n", encoding="utf-8")
     else:
-        print(body)
+        _print_json(report)
+
+
+def _print_json(value: Any) -> None:
+    body = json.dumps(value, ensure_ascii=False, indent=2)
+    try:
+        sys.stdout.write(body + "\n")
+    except UnicodeEncodeError:
+        fallback = json.dumps(value, ensure_ascii=True, indent=2)
+        sys.stdout.write(fallback + "\n")
 
 
 def _run(argv: list[str] | None = None) -> int:
@@ -858,7 +867,7 @@ def _run(argv: list[str] | None = None) -> int:
             return 2
 
         if args.json:
-            print(json.dumps(result, ensure_ascii=False, indent=2))
+            _print_json(result)
         else:
             print(f"file: {args.path}")
             print(f"has_issues: {result['has_issues']}")
@@ -887,7 +896,7 @@ def _run(argv: list[str] | None = None) -> int:
             return 2
 
         if args.json:
-            print(json.dumps(result, ensure_ascii=False, indent=2))
+            _print_json(result)
         else:
             print(f"file: {args.path}")
             if result is None:
@@ -919,7 +928,7 @@ def _run(argv: list[str] | None = None) -> int:
             return 2
 
         if args.json:
-            print(json.dumps(result, ensure_ascii=False, indent=2))
+            _print_json(result)
         else:
             print(f"file: {args.path}")
             print(f"entity_count: {result['entity_count']}")
@@ -946,7 +955,7 @@ def _run(argv: list[str] | None = None) -> int:
             return 2
 
         if args.json:
-            print(json.dumps(result, ensure_ascii=False, indent=2))
+            _print_json(result)
         else:
             audit_result = result["audit"]
             stats_result = result["stats"]
@@ -970,7 +979,7 @@ def _run(argv: list[str] | None = None) -> int:
     if args.command == "info":
         doc = read_document(args.path)
         if args.json:
-            print(json.dumps(doc, ensure_ascii=False, indent=2))
+            _print_json(doc)
             return 0
 
         entity_total = sum(doc["entity_counts"].values())

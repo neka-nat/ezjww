@@ -154,8 +154,8 @@ mod tests {
 
     use super::{is_jww_signature, parse_header, read_header_from_file, JwwError};
 
-    fn official_samples_dir() -> PathBuf {
-        Path::new(env!("CARGO_MANIFEST_DIR")).join("official_samples")
+    fn jww_samples_dir() -> PathBuf {
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("jww_samples")
     }
 
     #[test]
@@ -171,11 +171,11 @@ mod tests {
     }
 
     #[test]
-    fn parse_all_official_headers() {
-        let dir = official_samples_dir();
+    fn parse_all_jww_sample_headers() {
+        let dir = jww_samples_dir();
         assert!(
             dir.exists(),
-            "official_samples directory is required for this test: {}",
+            "jww_samples directory is required for this test: {}",
             dir.display()
         );
 
@@ -223,7 +223,7 @@ mod tests {
 
     #[test]
     fn extracts_non_default_layer_names_when_present() {
-        let path = official_samples_dir().join("Ａマンション平面例.jww");
+        let path = jww_samples_dir().join("Ａマンション平面例.jww");
         if !path.exists() {
             return;
         }

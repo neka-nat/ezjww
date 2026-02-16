@@ -41,8 +41,8 @@ jobs:
           WHEEL="$(ls dist/*.whl | head -n1)"
           test -n "${WHEEL}"
           "${VENV_PY}" -m pip install --force-reinstall "${WHEEL}"
-          "${VENV_PY}" -m ezjww info official_samples/Test1.jww
-          "${VENV_PY}" -m ezjww report official_samples/Test1.jww --json --explode-inserts
+          "${VENV_PY}" -m ezjww info jww_samples/Test1.jww
+          "${VENV_PY}" -m ezjww report jww_samples/Test1.jww --json --explode-inserts
           "${VENV_PY}" -m pytest -q tests/python
 
   publish:

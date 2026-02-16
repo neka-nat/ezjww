@@ -431,13 +431,13 @@ mod tests {
         validate_block_references, JwwError,
     };
 
-    fn official_samples_dir() -> PathBuf {
-        Path::new(env!("CARGO_MANIFEST_DIR")).join("official_samples")
+    fn jww_samples_dir() -> PathBuf {
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("jww_samples")
     }
 
     #[test]
-    fn parse_all_official_samples() {
-        let dir = official_samples_dir();
+    fn parse_all_jww_samples() {
+        let dir = jww_samples_dir();
         let mut files = fs::read_dir(&dir)
             .unwrap()
             .filter_map(Result::ok)
@@ -460,7 +460,7 @@ mod tests {
 
     #[test]
     fn real_data_scan_nested_dimensions_in_block_defs() {
-        let dir = official_samples_dir();
+        let dir = jww_samples_dir();
         let mut files = fs::read_dir(&dir)
             .unwrap()
             .filter_map(Result::ok)
@@ -509,7 +509,7 @@ mod tests {
 
     #[test]
     fn parse_shikichizu_expected_counts() {
-        let path = official_samples_dir().join("敷地図.jww");
+        let path = jww_samples_dir().join("敷地図.jww");
         let doc = read_document_from_file(&path).unwrap();
         let counts = entity_counts(&doc.entities);
 
