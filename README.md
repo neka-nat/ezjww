@@ -57,34 +57,34 @@ The package installs the `ezjww` command.
 
 ```bash
 # show summary
-ezjww info official_samples/Test1.jww
+ezjww info jww_samples/Test1.jww
 
 # run health checks
-ezjww audit official_samples/Test1.jww --json
+ezjww audit jww_samples/Test1.jww --json
 
 # calculate drawing extents
-ezjww bbox official_samples/Test1.jww --json --explode-inserts
+ezjww bbox jww_samples/Test1.jww --json --explode-inserts
 
 # show entity distribution
-ezjww stats official_samples/Test1.jww --json
+ezjww stats jww_samples/Test1.jww --json
 
 # show combined audit+bbox+stats
-ezjww report official_samples/Test1.jww --json --explode-inserts
+ezjww report jww_samples/Test1.jww --json --explode-inserts
 
 # convert one file
-ezjww to-dxf official_samples/Test1.jww -o /tmp/Test1.dxf
+ezjww to-dxf jww_samples/Test1.jww -o /tmp/Test1.dxf
 
 # convert one file + JSON report
-ezjww to-dxf official_samples/Test1.jww -o /tmp/Test1.dxf --report json
+ezjww to-dxf jww_samples/Test1.jww -o /tmp/Test1.dxf --report json
 
 # convert one file with INSERT expansion
-ezjww to-dxf official_samples/Test1.jww -o /tmp/Test1.dxf --explode-inserts
+ezjww to-dxf jww_samples/Test1.jww -o /tmp/Test1.dxf --explode-inserts
 
 # convert directory (recursive)
-ezjww to-dxf-dir official_samples -o /tmp/dxf_out -r
+ezjww to-dxf-dir jww_samples -o /tmp/dxf_out -r
 
 # render with matplotlib
-ezjww plot official_samples/Test1.jww -o /tmp/Test1.png --explode-inserts
+ezjww plot jww_samples/Test1.jww -o /tmp/Test1.png --explode-inserts
 ```
 
 ## Development
